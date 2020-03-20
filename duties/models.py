@@ -1,22 +1,37 @@
+import datetime
+
 from django.db import models
 
 
-class Duty(models.Model):
-    start_date = models.DateTimeField
-    end_date = models.DateTimeField
+class DutyDate(models.Model):
+    date = models.DateField()
+
+    def __str__(self) -> str:
+        return str(self.date)
 
 
-class Person(models.Model):
-    first_name = models.CharField(max_length=128)
-    last_name = models.CharField(max_length=128)
-    email = models.EmailField()
-    local_phone = models.CharField(max_length=64)
-    mobile_phone = models.CharField(max_length=64)
-    duties = models.ForeignKey(
-        Duty,
-        on_delete=models.CASCADE,
-        related_name='person',
-    )
+class Group(models.Model):
+    long_name = models.CharField(max_length=100)
+    short_name = models.CharField(max_length=10)
+
+    class Meta:
+        ordering = ['long_name']
+
+    def __str__(self) -> str:
+        return self.long_name
+
+
+class DutyPerson(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(null=True, blank=True)
+    local_phone = models.CharField(max_length=50, null=True, blank=True)
+    mobile_phone = models.CharField(max_length=50, null=True, blank=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    duties = models.ManyToManyField(DutyDate)
+
+    class Meta:
+        ordering = ['last_name']
 
     def __str__(self) -> str:
         return self.full_name
