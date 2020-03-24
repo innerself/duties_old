@@ -1,12 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>{% block title %}{{ site_name }}{% endblock title %}</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'duties/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'duties/style.css' %}">
 </head>
 <body>
-{% for person in duty %}
-  {{ person.full_name }}
-{% endfor %}
+  <header>
+    {% block header %}
+      <div class="logo"><h5><b>{{ logo }}</b></h5></div>
+      <div class="title"></div>
+      <div class="user"></div>
+    {% endblock header %}
+  </header>
+  <main>{% block content %}{% endblock content %}</main>
+  <script src="{% static 'duties/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'duties/bootstrap.min.js' %}"></script>
 </body>
 </html>

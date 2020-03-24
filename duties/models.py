@@ -1,4 +1,6 @@
 import datetime
+import calendar
+from typing import List
 
 from django.db import models
 
@@ -39,3 +41,28 @@ class DutyPerson(models.Model):
     @property
     def full_name(self) -> str:
         return f'{self.first_name} {self.last_name}'
+
+
+class DutyCalendar:
+    def __init__(self, year):
+        self._year = year
+        self._calendar = calendar.Calendar().yeardayscalendar(year)
+
+    def __str__(self):
+        return self._year
+
+    @property
+    def weekheader(self) -> List[str]:
+        return calendar.weekheader(3).split()
+
+    @property
+    def year(self) -> int:
+        return self._year
+
+    @property
+    def months(self) -> List[List[int]]:
+        return [
+            month
+            for quarter in self._calendar
+            for month in quarter
+        ]

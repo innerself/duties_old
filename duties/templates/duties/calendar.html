@@ -1,0 +1,31 @@
+{% extends 'duties/index.html' %}
+{% block content %}
+  <div class="calendar-wrapper">
+    {% for year in years %}
+      <div class="calendar-year">
+        <div class="calendar-year-num">{{ year.year }}</div>
+        {% for month in year.months %}
+          <div class="calendar-month">
+            <div class="calendar-month-name"></div>
+            <div class="calendar-weekheader">
+              {% for weekday in year.weekheader %}
+                <div class="calendar-weekday">{{ weekday }}</div>
+              {% endfor %}
+            </div>
+            {% for week in month%}
+              <div class="calendar-week">
+                {% for date in week %}
+                  {% if date == 0 %}
+                    <div class="calendar-date">&nbsp;</div>
+                  {% else %}
+                    <div class="calendar-date">{{ date }}</div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
