@@ -5,7 +5,6 @@ html {
 
 body {
   height: 100%;
-  grid-gap: 0.5em;
 }
 
 header,
@@ -111,37 +110,77 @@ main {
 /* CALENDAR */
 
 .calendar-wrapper {
+  width: 70%;
+  margin: 0 auto;
   display: grid;
   grid-auto-rows: auto;
 }
 
-/*.calendar-wrapper * {*/
-/*  border: 1px solid black;*/
-/*}*/
+.calendar-wrapper * {
+  text-align: center;
+}
 
 .calendar-year {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr repeat(4, 5fr);
+  grid-template-rows: auto;
+  grid-gap: 15px;
+}
+
+.calendar-year:not(:last-child) {
+  margin-bottom: 3em;
+}
+
+@media (max-width: 1400px) {
+  .calendar-wrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1050px) {
+  .calendar-year {
+    grid-template-columns: repeat(2, 1fr);
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 750px) {
+  .calendar-year {
+    grid-template-columns: 1fr;
+  }
 }
 
 .calendar-year-num {
   grid-column: 1 / -1;
   grid-row: 1;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
 }
 
 .calendar-month {
-  /*grid-column: auto;*/
-  /*grid-row: auto;*/
+  grid-column: auto;
+  grid-row: auto;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(8, 1fr);
+  max-width: 350px;
+  margin: 0 auto;
+  font-size: 14px;
+}
+
+.calendar-month-name {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  font-weight: bold;
+  padding: 8px;
 }
 
 .calendar-weekheader {
   grid-column: 1 / -1;
-  grid-row: 1;
+  grid-row: 2;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 1fr;
@@ -150,6 +189,8 @@ main {
 .calendar-weekday {
   grid-column: auto;
   grid-row: 1;
+  font-weight: 600;
+  padding: 8px;
 }
 
 .calendar-week {
@@ -163,4 +204,10 @@ main {
 .calendar-date {
   grid-row: auto;
   grid-column: auto;
+  padding: 8px;
+}
+
+.separation-line {
+  /*border-top: lightgrey 1px solid;*/
+  border-top: #ddd 1px solid;
 }

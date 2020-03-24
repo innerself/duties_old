@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{{ site_name }}{% endblock title %}</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'duties/bootstrap.min.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'duties/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'duties/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'duties/css/style.css' %}">
 </head>
 <body>
   <header>
@@ -16,7 +16,7 @@
     {% endblock header %}
   </header>
   <main>{% block content %}{% endblock content %}</main>
-  <script src="{% static 'duties/jquery-3.4.1.min.js' %}"></script>
-  <script src="{% static 'duties/bootstrap.min.js' %}"></script>
+  <script src="{% static 'duties/js/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'duties/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

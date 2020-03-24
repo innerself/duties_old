@@ -60,6 +60,10 @@ class DutyCalendar:
         return self._year
 
     @property
+    def month_name(self) -> List[str]:
+        return calendar.month_name
+
+    @property
     def months(self) -> List[List[int]]:
         return [
             month
