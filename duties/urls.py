@@ -8,5 +8,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('auth/', views.auth, name='auth'),
     path('auth/<str:action>', views.auth, name='auth'),
-    path('calendar/', views.calendar, name='calendar'),
+    path('calendar/<str:group>', views.calendar, name='calendar'),
 ]

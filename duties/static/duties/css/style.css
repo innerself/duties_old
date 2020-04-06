@@ -109,9 +109,16 @@ main {
 
 /* CALENDAR */
 
-.calendar-wrapper {
+.calendar-page {
   width: 70%;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-gap: 30px;
+}
+
+.calendar-wrapper {
+  grid-column: 1;
   display: grid;
   grid-auto-rows: auto;
 }
@@ -210,4 +217,14 @@ main {
 .separation-line {
   /*border-top: lightgrey 1px solid;*/
   border-top: #ddd 1px solid;
+}
+
+/*.panel-wrapper {*/
+/*  grid-column: 2;*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*}*/
+
+.panel-highlight {
+  position: sticky;
 }

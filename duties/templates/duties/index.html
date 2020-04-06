@@ -13,6 +13,19 @@
       <div class="logo"><h5><b>{{ logo }}</b></h5></div>
       <div class="title"></div>
       <div class="user"></div>
+      {% if request.user.is_authenticated %}
+        <span>
+          <a href="{% url 'admin:index' %}" title="Edit licenses">
+            <img id="button-edit" alt="image-edit" src="{% static 'duties/img/edit.svg' %}">
+          </a>
+        </span>
+        <span id="user-full-name">{{ request.user.get_full_name }}</span>
+        <span>
+          <a href="{% url 'duties:auth' action='logout' %}" title="Logout">
+            <img id="button-logout" alt="image-logout" src="{% static 'duties/img/log-out.svg' %}">
+          </a>
+        </span>
+      {% endif %}
     {% endblock header %}
   </header>
   <main>{% block content %}{% endblock content %}</main>

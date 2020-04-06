@@ -1,34 +1,50 @@
 {% extends 'duties/index.html' %}
 {% load index %}
 {% block content %}
-  <div class="calendar-wrapper">
-    {% for year in years %}
-      <div class="calendar-year">
-        <div class="calendar-year-num">{{ year.year }}</div>
-        {% for month in year.months %}
-          <div class="calendar-month">
-            <div class="calendar-month-name separation-line">
-              {{ year.month_name|index:forloop.counter }}
-            </div>
-            <div class="calendar-weekheader separation-line">
-              {% for weekday in year.weekheader %}
-                <div class="calendar-weekday">{{ weekday }}</div>
-              {% endfor %}
-            </div>
-            {% for week in month %}
-              <div class="calendar-week separation-line">
-                {% for date in week %}
-                  {% if date == 0 %}
-                    <div class="calendar-date">&nbsp;</div>
-                  {% else %}
-                    <div class="calendar-date">{{ date }}</div>
-                  {% endif %}
+  <div class="calendar-page">
+    <div class="calendar-wrapper">
+      {% for year in calendar %}
+        <div class="calendar-year">
+          <div class="calendar-year-num">{{ year.year }}</div>
+          {% for month in year.months %}
+            <div class="calendar-month">
+              <div class="calendar-month-name separation-line">
+                {{ year.month_name|index:forloop.counter }}
+              </div>
+              <div class="calendar-weekheader separation-line">
+                {% for weekday in year.weekheader %}
+                  <div class="calendar-weekday">{{ weekday }}</div>
                 {% endfor %}
               </div>
-            {% endfor %}
-          </div>
-        {% endfor %}
+              {% for week in month %}
+                <div class="calendar-week separation-line">
+                  {% for date in week %}
+                    {% if date == 0 %}
+                      <div class="calendar-date">&nbsp;</div>
+                    {% else %}
+                      <div class="calendar-date">{{ date }}</div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="panel-wrapper">
+      <div class="panel-highlight">
+        <div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="checkbox">Все
+          </label>
+          {% for person in duty_persons %}
+            <label class="btn btn-default active">
+              <input type="checkbox">{{ person.full_name }}
+            </label>
+          {% endfor %}
+        </div>
       </div>
-    {% endfor %}
+    </div>
   </div>
 {% endblock content %}
