@@ -21,6 +21,8 @@ footer {
 }
 
 header {
+  position: sticky;
+  top: 0;
   display: grid;
   grid-template-columns: 5fr 8fr 5fr;
   background: #00cccc;
@@ -215,16 +217,12 @@ main {
 }
 
 .separation-line {
-  /*border-top: lightgrey 1px solid;*/
-  border-top: #ddd 1px solid;
+  border-top: lightgrey 1px solid;
 }
 
-/*.panel-wrapper {*/
-/*  grid-column: 2;*/
-/*  position: absolute;*/
-/*  top: 0;*/
-/*}*/
-
-.panel-highlight {
+.panel-wrapper {
+  grid-column: 2;
   position: sticky;
+  top: 80px;
+  height: 100vh;
 }
