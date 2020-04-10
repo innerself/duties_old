@@ -1,11 +1,14 @@
 import calendar
 import datetime
 from collections import namedtuple
-from typing import List
+from typing import List, Optional
 
 from colorfield.fields import ColorField
 from django.db import models
 from pytils.translit import slugify
+
+
+DutyInfo = namedtuple('DutyInfo', "date, person")
 
 
 class DutyDate(models.Model):
@@ -74,7 +77,7 @@ class DutyCalendar:
         return calendar.month_name
 
     @property
-    def calendar(self) -> List[List[List[DutyDate]]]:
+    def calendar(self) -> List[List[List[DutyInfo]]]:
         return [
             self._fill_month(month_days, month_num)
             for month_num, month_days in enumerate(self._flat_calendar(), 1)
@@ -87,14 +90,18 @@ class DutyCalendar:
             for month in quarter
         ]
 
-    def _fill_month(self, month_days: List[List[int]], month_num: int):
+    def _fill_month(self,
+                    month_days: List[List[int]],
+                    month_num: int) -> List[List[DutyInfo]]:
         return [
             self._fill_week(week, month_num)
             for week
             in month_days
         ]
 
-    def _fill_week(self, week: List[int], month_num: int):
+    def _fill_week(self,
+                   week: List[int],
+                   month_num: int) -> List[Optional[DutyInfo]]:
         filled_week = []
         for day in week:
             if day == 0:
@@ -106,8 +113,6 @@ class DutyCalendar:
                 date=dt,
                 dutyperson__group__short_name=self._group,
             ).first()
-
-            DutyInfo = namedtuple('DutyInfo', "date, person")
 
             if duty:
                 person = getattr(duty.dutyperson_set, 'first', None)()
