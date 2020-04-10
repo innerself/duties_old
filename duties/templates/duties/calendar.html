@@ -39,7 +39,7 @@
         <div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
           <label class="btn btn-primary active"><input type="checkbox">Все</label>
           {% for person in duty_persons %}
-            <label class="btn btn-primary" data-person-color="{{ person.color }}">
+            <label class="btn btn-primary" data-person-slug="{{ person.name_slug }}" data-person-color="{{ person.color }}">
               <input type="checkbox">{{ person.full_name }}
             </label>
           {% endfor %}
