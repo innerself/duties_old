@@ -6,28 +6,30 @@
       {% for year in calendar %}
         <div class="calendar-year">
           <div class="calendar-year-num">{{ year.year }}</div>
-          {% for month in year.months %}
-            <div class="calendar-month">
-              <div class="calendar-month-name separation-line">
-                {{ year.month_name|index:forloop.counter }}
-              </div>
-              <div class="calendar-weekheader separation-line">
-                {% for weekday in year.weekheader %}
-                  <div class="calendar-weekday">{{ weekday }}</div>
-                {% endfor %}
-              </div>
-              {% for week in month %}
-                <div class="calendar-week separation-line">
-                  {% for date in week %}
-                    {% if date == 0 %}
-                      <div class="calendar-date">&nbsp;</div>
-                    {% else %}
-                      <div class="calendar-date">{{ date }}</div>
-                    {% endif %}
+          {% for month in year.calendar %}
+            {% with month_num=forloop.counter %}
+              <div class="calendar-month">
+                <div class="calendar-month-name separation-line">{{ year.month_name|index:month_num }}</div>
+                <div class="calendar-weekheader separation-line">
+                  {% for weekday in year.weekheader %}
+                    <div class="calendar-weekday">{{ weekday }}</div>
                   {% endfor %}
                 </div>
-              {% endfor %}
-            </div>
+                {% for week in month %}
+                  <div class="calendar-week separation-line">
+                    {% for date in week %}
+                      {% if not date %}
+                        <div class="calendar-date">&nbsp;</div>
+                      {% elif date.person %}
+                        <div class="calendar-date {{ date.person.name_slug }}">{{ date.date.day }}</div>
+                      {% else %}
+                        <div class="calendar-date">{{ date.date.day }}</div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endwith %}
           {% endfor %}
         </div>
       {% endfor %}
@@ -35,11 +37,9 @@
     <div class="panel-wrapper">
       <div class="panel-highlight">
         <div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary active">
-            <input type="checkbox">Все
-          </label>
+          <label class="btn btn-primary active"><input type="checkbox">Все</label>
           {% for person in duty_persons %}
-            <label class="btn btn-default active">
+            <label class="btn btn-primary" data-person-color="{{ person.color }}">
               <input type="checkbox">{{ person.full_name }}
             </label>
           {% endfor %}

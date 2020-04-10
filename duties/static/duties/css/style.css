@@ -226,3 +226,11 @@ main {
   top: 80px;
   height: 100vh;
 }
+
+.panel-highlight {
+  width: 100%;
+}
+
+.btn-group-vertical {
+  width: 100%;
+}

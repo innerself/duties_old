@@ -7,6 +7,7 @@ from .models import DutyPerson, Group, DutyDate
 
 def generate_persons(number: int = 20) -> None:
     person_generator = mimesis.Person('ru')
+    text_generator = mimesis.Text()
     all_groups = Group.objects.all()
     if not all_groups:
         raise ValueError('You must create groups before persons')
@@ -20,6 +21,7 @@ def generate_persons(number: int = 20) -> None:
             email=person_generator.email(),
             local_phone='-'.join(person_generator.telephone().split('-')[-2:]),
             mobile_phone=person_generator.telephone(),
+            color=text_generator.hex_color(safe=True),
             group=random.choice(all_groups),
         )
 
@@ -63,8 +65,10 @@ def generate_duties(start_date=None, end_date=None) -> None:
     while current_date <= end_date:
         dd = DutyDate(date=current_date)
         dd.save()
-        duty_person = random.choice(all_persons)
-        duty_person.duties.add(dd)
+        duty_person = random.choice([*all_persons, None])
+
+        if duty_person:
+            duty_person.duties.add(dd)
 
         current_date += datetime.timedelta(days=1)
 
