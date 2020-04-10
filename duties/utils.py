@@ -15,13 +15,23 @@ def generate_persons(number: int = 20) -> None:
     print(f'Creating {number} fake persons')
 
     for _ in range(number):
+        used_colors = [
+            person.color
+            for person
+            in DutyPerson.objects.all()
+        ]
+
+        color = text_generator.hex_color(safe=True)
+        while color in used_colors:
+            color = text_generator.hex_color(safe=True)
+
         DutyPerson.objects.create(
             first_name=person_generator.first_name(),
             last_name=person_generator.last_name(),
             email=person_generator.email(),
             local_phone='-'.join(person_generator.telephone().split('-')[-2:]),
             mobile_phone=person_generator.telephone(),
-            color=text_generator.hex_color(safe=True),
+            color=color,
             group=random.choice(all_groups),
         )
 
