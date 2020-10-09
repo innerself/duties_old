@@ -21,7 +21,8 @@
                       {% if not date %}
                         <div class="calendar-date">&nbsp;</div>
                       {% elif date.person %}
-                        <div class="calendar-date {{ date.person.name_slug }}">{{ date.date.day }}</div>
+                        <div class="calendar-date {{ date.person.name_slug }}"
+                             title="{{ date.person.full_name }}">{{ date.date.day }}</div>
                       {% else %}
                         <div class="calendar-date">{{ date.date.day }}</div>
                       {% endif %}
@@ -37,10 +38,12 @@
     <div class="panel-wrapper">
       <div class="panel-highlight">
         <div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-primary active"><input type="checkbox">Все</label>
+          <label id="btn-everyone" class="btn btn-primary active"><input type="checkbox">Все</label>
           {% for person in duty_persons %}
-            <label class="btn btn-primary" data-person-slug="{{ person.name_slug }}" data-person-color="{{ person.color }}">
-              <input type="checkbox">{{ person.full_name }}
+            <label class="btn btn-primary btn-person"
+                   data-person-slug="{{ person.name_slug }}"
+                   data-person-color="{{ person.color }}">
+              <input type="checkbox"><div></div>{{ person.full_name }}
             </label>
           {% endfor %}
         </div>
